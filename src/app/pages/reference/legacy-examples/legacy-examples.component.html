@@ -1,0 +1,123 @@
+<section>
+  <h1>Ejemplos anteriores de Spring</h1>
+  <section>
+    <button (click)="getUser()">Obtener detalles del usuario</button>
+    @if (loading) {
+      <p>Cargando...</p>
+    } @else if (error) {
+      <p role="alert">{{ error }}</p>
+    } @else {
+      <pre>{{ userDetails | json }}</pre>
+      <p>Nombre: {{ userDetails.name }}</p>
+      <p>Profesión: {{ userDetails.profession }}</p>
+      <p>Email: {{ userDetails.email }}</p>
+    }
+  </section>
+  <section>
+    <button (click)="getUserName()">Obtener nombre del usuario</button>
+    @if (loadingName) {
+      <p>Cargando...</p>
+    } @else if (errorName) {
+      <p role="alert">{{ errorName }}</p>
+    } @else {
+      <p>Nombre: {{ userName }}</p>
+    }
+  </section>
+  <section>
+    <button (click)="getUserNameWithObject()">Obtener nombre con objeto</button>
+    @if (loadingNameWithObject) {
+      <p>Cargando...</p>
+    } @else if (errorNameWithObject) {
+      <p role="alert">{{ errorNameWithObject }}</p>
+    } @else {
+      <pre>{{ userNameWithObject | json }}</pre>
+    }
+  </section>
+  <section>
+    <button (click)="getListOfUsers()">Obtener lista de usuarios</button>
+    @if (loadingListOfUsers) {
+      <p>Cargando...</p>
+    } @else if (errorListOfUsers) {
+      <p role="alert">{{ errorListOfUsers }}</p>
+    } @else {
+      <ul>
+        @for (user of listOfUsers; track user.name) {
+          <li>
+            <p>Nombre: {{ user.name }}</p>
+            <p>Profesión: {{ user.profession }}</p>
+            <p>Email: {{ user.email || 'No disponible' }}</p>
+          </li>
+        }
+      </ul>
+    }
+  </section>
+  <section>
+    <h2>Query params</h2>
+    <label for="message">Mensaje</label>
+    <input id="message" name="message" [(ngModel)]="message" />
+    <button (click)="getParams(message)">Enviar</button>
+    @if (errorParams) {
+      <p role="alert">{{ errorParams }}</p>
+    } @else if (paramsResponse) {
+      <pre>{{ paramsResponse }}</pre>
+    }
+  </section>
+  <section>
+    <h2>Dos query params</h2>
+    <label for="message2">Mensaje</label>
+    <input id="message2" name="message2" [(ngModel)]="message2" />
+    <label for="page">Página</label>
+    <input id="page" name="page" [(ngModel)]="page" />
+    <button (click)="getParams2(message2, page)">Enviar</button>
+    @if (errorParams2) {
+      <p role="alert">{{ errorParams2 }}</p>
+    } @else {
+      <p>{{ message2 }} {{ page }}</p>
+    }
+  </section>
+  <section>
+    <h2>Otro ejemplo con query params</h2>
+    <label for="message3">Mensaje</label>
+    <input id="message3" name="message3" [(ngModel)]="message3" />
+    <label for="page3">Página</label>
+    <input id="page3" name="page3" [(ngModel)]="page3" />
+    <button (click)="getParams3(message3, page3)">Enviar</button>
+    @if (errorParams3) {
+      <p role="alert">{{ errorParams3 }}</p>
+    } @else {
+      <p>{{ message3 }} {{ page3 }}</p>
+    }
+  </section>
+  <section>
+    <h2>Path param</h2>
+    <label for="messagePath">Mensaje</label>
+    <input id="messagePath" name="messagePath" [(ngModel)]="messagePath" />
+    <button (click)="getPath(messagePath)">Enviar</button>
+    @if (errorPathParams) {
+      <p role="alert">{{ errorPathParams }}</p>
+    } @else if (pathParamsResponse) {
+      <pre>{{ pathParamsResponse }}</pre>
+    }
+  </section>
+  <section>
+    <h2>POST: crear usuario</h2>
+    <form (ngSubmit)="createUser()">
+      <label for="create-name">Nombre</label>
+      <input id="create-name" name="name" [(ngModel)]="userForm.name" required />
+      <label for="create-profession">Profesión</label>
+      <input id="create-profession" name="profession" [(ngModel)]="userForm.profession" required />
+      <label for="create-email">Email</label>
+      <input id="create-email" name="email" type="email" [(ngModel)]="userForm.email" required />
+      <button type="submit" [disabled]="creatingUser">
+        {{ creatingUser ? 'Enviando...' : 'Crear usuario' }}
+      </button>
+    </form>
+    @if (createUserError) {
+      <p role="alert">{{ createUserError }}</p>
+    }
+    @if (createdUser) {
+      <h3>Respuesta del servidor</h3>
+      <pre>{{ createdUser | json }}</pre>
+    }
+  </section>
+</section>
